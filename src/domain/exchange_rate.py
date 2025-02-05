@@ -5,7 +5,7 @@ from datetime import date
 
 
 @dataclass
-class Currency:
+class CurrencyEntity:
     """
     Represents a currency with its code, name, and symbol.
     """
@@ -26,12 +26,12 @@ class Currency:
 
 
 @dataclass
-class CurrencyExchangeRate:
+class CurrencyExchangeRateEntity:
     """
     Represents the exchange rate between two currencies on a specific valuation date.
     """
-    source_currency: Currency
-    exchanged_currency: Currency
+    source_currency: CurrencyEntity
+    exchanged_currency: CurrencyEntity
     valuation_date: date
     rate_value: float
 
