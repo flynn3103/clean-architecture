@@ -15,6 +15,11 @@ export DJANGO_ENV
 
 .PHONY: all migrate runserver
 
+# dependency
+venv-config: poetry config virtualenvs.in-project true
+
+install: poetry install --no-root
+
 all: migrate runserver
 
 migrate:
