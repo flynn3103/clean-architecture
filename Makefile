@@ -10,7 +10,7 @@
 #   DJANGO_ENV   - Environment variable indicating the Django environment (defaults to development)
 
 PORT ?= 8000
-DJANGO_ENV ?= development
+DJANGO_ENV ?= develop
 export DJANGO_ENV
 
 .PHONY: all migrate runserver
@@ -24,8 +24,8 @@ all: migrate runserver
 
 migrate:
 	@echo "Running migrations with DJANGO_ENV=$(DJANGO_ENV)..."
-	@python manage.py migrate --settings=src.infrastructure.config.settings
+	@python manage.py migrate
 
 run:
 	@echo "Starting Django development server on 0.0.0.0:$(PORT) with DJANGO_ENV=$(DJANGO_ENV)..."
-	@python manage.py runserver 0.0.0.0:$(PORT) --settings=src.infrastructure.config.settings
+	@python manage.py runserver 0.0.0.0:$(PORT)

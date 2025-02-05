@@ -14,6 +14,7 @@ dependencies = [
 Django = "^3.2.5"
 psycopg2 = "^2.9.1"
 djangorestframework = "^3.12.4"
+marshmallow = "^3.13.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.7"
