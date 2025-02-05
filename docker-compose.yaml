@@ -33,6 +33,21 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      cache:
+        condition: service_healthy
+  cache:
+    image: redis:6.2
+    container_name: forex_cache
+    restart: on-failure
+    volumes:
+      - redisdata:/var/lib/redis/data
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
 volumes:
   pgdata:
