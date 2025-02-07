@@ -29,3 +29,6 @@ migrate:
 run:
 	@echo "Starting Django development server on 0.0.0.0:$(PORT) with DJANGO_ENV=$(DJANGO_ENV)..."
 	@python manage.py runserver 0.0.0.0:$(PORT)
+loaddata:
+	@echo "Starting load fixture data into your Django project's database with DJANGO_ENV=$(DJANGO_ENV)..."
+	@python manage.py loaddata fixtures/*.json
