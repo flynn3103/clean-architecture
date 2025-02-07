@@ -1,6 +1,12 @@
 # coding: utf-8
 
+import os
+
 from src.infrastructure.settings.base import *
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 
 # Database
@@ -9,11 +15,11 @@ from src.infrastructure.settings.base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'forex_test',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'db',
-        'PORT': '5432',
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
 
@@ -24,9 +30,12 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/0',
+        'LOCATION': f'redis://cache:{os.environ.get("REDIS_PORT")}/1',
+        'TIMEOUT': 60 * 60 * 24,
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'SOCKET_CONNECT_TIMEOUT': 5,
+            'SOCKET_TIMEOUT': 5,
         }
     }
 }
