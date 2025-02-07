@@ -6,43 +6,29 @@ from datetime import date
 
 @dataclass
 class CurrencyEntity:
-    """
-    Represents a currency with its code, name, and symbol.
-    """
     code: str
     name: str
     symbol: str
 
     def __str__(self) -> str:
-        """
-        Return a human-readable representation of the currency.
-        
-        Examples:
-            - "USD ($): United States Dollar"
-            - "JPY: Japanese Yen" (if no symbol is provided)
-        """
-        symbol_formatted = f" ({self.symbol}):" if self.symbol else ":"
-        return f"{self.code}{symbol_formatted} {self.name}"
+        _symbol = f" ({self.symbol}):" if self.symbol else ":"
+        return f'{self.code}{_symbol} {self.name}'
 
 
 @dataclass
 class CurrencyExchangeRateEntity:
-    """
-    Represents the exchange rate between two currencies on a specific valuation date.
-    """
     source_currency: CurrencyEntity
     exchanged_currency: CurrencyEntity
     valuation_date: date
     rate_value: float
 
     def __str__(self) -> str:
-        """
-        Return a human-readable representation of the currency exchange rate.
-        
-        Example:
-            "USD/EUR = 0.85 (2023-10-01)"
-        """
+        source_currency = self.source_currency.code
+        exchanged_currency = self.exchanged_currency.code
         return (
-            f"{self.source_currency.code}/{self.exchanged_currency.code} "
-            f"= {self.rate_value} ({self.valuation_date})"
+            f'{source_currency}/{exchanged_currency} '
+            f'= {self.rate_value} ({self.valuation_date})'
         )
+
+    def calculate_amount(self, amount: float) -> float:
+        return round(amount * self.rate_value, 2)
